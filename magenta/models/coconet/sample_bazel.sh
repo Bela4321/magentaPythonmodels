@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#!/bin/bash
 
 set -x
 set -e
@@ -22,15 +21,18 @@ set -e
 # http://download.magenta.tensorflow.org/models/coconet/checkpoint.zip
 # and pass the path up to the inner most directory as first argument when running this
 # script.
-checkpoint=$1
+checkpoint="/checkpoint/coconet-64layers-128filters"
 
 # Change this to path for saving samples.
-generation_output_dir=$HOME/samples
+generation_output_dir="/samples"
+
+#Path to midi in
+prime_midi_melody_fpath="/midiIn/test.midi"
 
 # Generation parameters.
 # Number of samples to generate in a batch.
 gen_batch_size=2
-piece_length=16
+piece_length=32
 strategy=igibbs
 tfsample=true
 
@@ -43,6 +45,6 @@ python coconet_sample.py \
 --strategy=$strategy \
 --tfsample=$tfsample \
 --generation_output_dir=$generation_output_dir \
---logtostderr
-
+--logtostderr \
+--prime_midi_melody_fpath=$prime_midi_melody_fpath
 
