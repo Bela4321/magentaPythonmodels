@@ -24,10 +24,10 @@ set -e
 checkpoint="/checkpoint/coconet-64layers-128filters"
 
 # Change this to path for saving samples.
-generation_output_dir="/samples"
+generation_output_dir="/project/belaCoconet/magentaPythonmodels/magenta/models/coconet/samples"
 
 #Path to midi in
-prime_midi_melody_fpath="/midiIn/test.midi"
+prime_midi_melody_fpath="/midiIn/test.mid"
 
 # Generation parameters.
 # Number of samples to generate in a batch.
