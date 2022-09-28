@@ -21,13 +21,13 @@ set -e
 # http://download.magenta.tensorflow.org/models/coconet/checkpoint.zip
 # and pass the path up to the inner most directory as first argument when running this
 # script.
-checkpoint="/checkpoint/coconet-64layers-128filters"
+checkpoint="checkpoint/coconet-64layers-128filters"
 
 # Change this to path for saving samples.
 generation_output_dir="/project/belaCoconet/magentaPythonmodels/magenta/models/coconet/samples"
 
 #Path to midi in
-prime_midi_melody_fpath="/midiIn/test.mid"
+prime_midi_melody_fpath="midiIn/test.mid"
 
 # Generation parameters.
 # Number of samples to generate in a batch.
