@@ -46,11 +46,36 @@ flags.DEFINE_bool("midi_io", False, "Run in midi in and midi out mode."
                   "Does not write any midi or logs to disk.")
 flags.DEFINE_bool("tfsample", True, "Run sampling in Tensorflow graph.")
 
+flags.DEFINE_string("input_pianoroll", None,
+                    "input file containing pianoroll input as .npy")
+flags.DEFINE_string("input_mask", None,
+                    "input file containing mask as .npy")
+
 
 def main(unused_argv):
   if FLAGS.checkpoint is None or not FLAGS.checkpoint:
     raise ValueError(
         "Need to provide a path to checkpoint directory.")
+
+  '''this is my code'''
+  #testcomment
+  '''input_pianoroll = None
+  input_mask = None
+  if (FLAGS.input_pianoroll is not None):
+    input_pianoroll = np.load(FLAGS.input_pianoroll)
+  if (FLAGS.input_mask is not None):
+    input_mask = np.load(FLAGS.input_mask)
+
+  if (input_pianoroll is not None and input_mask is not None):
+      if (input_pianoroll.shape == input_mask.shape):
+          raise ValueError(
+              "shape from mask and pianorol input dont match!"
+          )'''
+  prettyMidi = pretty_midi.load(FLAGS.prime_midi_melody_fpath)
+
+
+
+  '''this is my code'''
 
   if FLAGS.tfsample:
     generator = TFGenerator(FLAGS.checkpoint)
@@ -58,7 +83,10 @@ def main(unused_argv):
     wmodel = instantiate_model(FLAGS.checkpoint)
     generator = Generator(wmodel, FLAGS.strategy)
   midi_outs = generator.run_generation(
-      gen_batch_size=FLAGS.gen_batch_size, piece_length=FLAGS.piece_length)
+      gen_batch_size=FLAGS.gen_batch_size,
+      piece_length=FLAGS.piece_length,
+      midi_in= prettyMidi
+  )
 
   # Creates a folder for storing the process of the sampling.
   label = "sample_%s_%s_%s_T%g_l%i_%.2fmin" % (lib_util.timestamp(),
@@ -81,6 +109,8 @@ def main(unused_argv):
   tf.logging.info("Writing final result to %s", result_npy_save_path)
   with tf.gfile.Open(result_npy_save_path, "w") as p:
     np.save(p, generator.pianorolls)
+
+
 
   if FLAGS.tfsample:
     tf.logging.info("Done")
