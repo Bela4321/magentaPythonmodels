@@ -71,7 +71,9 @@ def main(unused_argv):
           raise ValueError(
               "shape from mask and pianorol input dont match!"
           )'''
-  prettyMidi = pretty_midi.PrettyMIDI(os.path.join(FLAGS.generation_output_dir, FLAGS.prime_midi_melody_fpath))
+  midiInPath = os.path.join(FLAGS.generation_output_dir, FLAGS.prime_midi_melody_fpath)
+  print(midiInPath)
+  prettyMidi = pretty_midi.PrettyMIDI(midiInPath)
 
 
 
