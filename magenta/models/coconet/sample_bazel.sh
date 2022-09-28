@@ -32,7 +32,7 @@ prime_midi_melody_fpath="midiIn/test.mid"
 # Generation parameters.
 # Number of samples to generate in a batch.
 gen_batch_size=2
-piece_length=32
+piece_length=128
 strategy=igibbs
 tfsample=true
 
